@@ -52,7 +52,9 @@ window.addEventListener('scroll', () => {
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--primary-color)';
+            link.classList.toggle(
+    'active',
+    link.getAttribute('href').slice(1) === current);
         } else {
             link.style.color = '';
         }
