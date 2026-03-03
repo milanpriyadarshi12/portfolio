@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Milan Priyadarshi - AI & ML Engineer Portfolio. Projects, skills, and contact information.">
+    <meta name="keywords" content="Milan Priyadarshi, AI Engineer, ML Engineer, Web Developer, Portfolio">
+    <meta name="author" content="Milan Priyadarshi">
     <title>Portfolio - Milan Priyadarshi</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,6 +18,7 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -215,6 +219,27 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+
+    <!-- AI Assistant -->
+<div class="ai-assistant">
+  <button id="aiToggle" class="ai-toggle">
+    <i class="fas fa-robot"></i>
+  </button>
+
+  <div id="aiChat" class="ai-chat">
+    <div class="ai-header">
+      <span>Ask Milan AI</span>
+      <button id="aiClose">&times;</button>
+    </div>
+
+    <div id="aiMessages" class="ai-messages"></div>
+
+    <div class="ai-input-area">
+      <input type="text" id="aiInput" placeholder="Ask something..." />
+      <button id="aiSend">Send</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
