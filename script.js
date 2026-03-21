@@ -95,3 +95,81 @@ if (navToggle && navMenu) {
         }
     });
 }
+// ========== AI Assistant ==========
+
+const aiToggle = document.getElementById("aiToggle");
+const aiChat = document.getElementById("aiChat");
+const aiClose = document.getElementById("aiClose");
+const aiSend = document.getElementById("aiSend");
+const aiInput = document.getElementById("aiInput");
+const aiMessages = document.getElementById("aiMessages");
+
+// Safety check (prevents errors if elements not loaded)
+if (aiToggle && aiChat) {
+
+    // Local Knowledge Base
+    const knowledgeBase = {
+        "who are you": "Hi! I'm Milan's AI assistant 🤖.",
+        "skills": "Milan works with AI, ML, Python, JavaScript, React and backend tech.",
+        "projects": "He built interactive web apps and AI-based projects.",
+        "contact": "Email: milanpriyadarshi447@gmail.com",
+        "education": "MCA pursuing | BCA completed with strong CGPA"
+    };
+
+    function addMessage(text, sender) {
+        const msg = document.createElement("div");
+        msg.classList.add("message", sender);
+        msg.textContent = text;
+        aiMessages.appendChild(msg);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    function botReply(userText) {
+        const lowerText = userText.toLowerCase();
+
+        let response = "Ask me about skills, projects, education or contact 😊";
+
+        for (let key in knowledgeBase) {
+            if (lowerText.includes(key)) {
+                response = knowledgeBase[key];
+                break;
+            }
+        }
+
+        // Typing animation
+        const typingMsg = document.createElement("div");
+        typingMsg.classList.add("message", "bot");
+        typingMsg.textContent = "Typing...";
+        aiMessages.appendChild(typingMsg);
+
+        setTimeout(() => {
+            typingMsg.remove();
+            addMessage(response, "bot");
+        }, 700);
+    }
+
+    // Open chat
+    aiToggle.addEventListener("click", () => {
+        aiChat.classList.toggle("active");
+    });
+
+    // Close chat
+    aiClose?.addEventListener("click", () => {
+        aiChat.classList.remove("active");
+    });
+
+    // Send message
+    aiSend?.addEventListener("click", () => {
+        const text = aiInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, "user");
+        aiInput.value = "";
+        botReply(text);
+    });
+
+    // Enter key
+    aiInput?.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") aiSend.click();
+    });
+}
