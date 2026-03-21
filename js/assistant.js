@@ -1,6 +1,6 @@
 /**
  * AI Assistant Module
- * Clean, optimized local knowledge base chatbot with voice synthesis
+ * Local knowledge base chatbot with voice synthesis
  */
 
 (function () {
@@ -17,122 +17,92 @@
     send: document.getElementById('aiSend'),
     input: document.getElementById('aiInput'),
     messages: document.getElementById('aiMessages'),
-    assistant: document.querySelector('.ai-assistant'),
   };
 
   // ==========================================
-  // STATE MANAGEMENT
+  // STATE
   // ==========================================
 
   let currentSpeech = null;
   let isTyping = false;
   let selectedVoice = null;
-  const VOICE_GREETING_KEY = 'milan_portfolio_voice_played';
+  let hasPlayedGreeting = false;
 
   // ==========================================
   // KNOWLEDGE BASE
   // ==========================================
 
   const knowledgeBase = [
-    // Personal Information
     {
-      keywords: ['who', 'milan', 'about', 'introduce', 'himself', 'person'],
+      keywords: ['who', 'milan', 'about', 'introduce'],
       response: "Hi! I'm Milan Priyadarshi, an AI & ML Engineer and Creative Problem Solver. I'm passionate about building innovative solutions that make a difference. Currently pursuing my MCA while continuously learning and growing in the tech world.",
       priority: 10
     },
-
-    // Skills and Technologies
     {
-      keywords: ['skill', 'skills', 'technology', 'technologies', 'tech', 'expertise', 'know', 'can do', 'programming'],
+      keywords: ['skills', 'technology', 'tech'],
       response: "Milan specializes in a wide range of technologies:\n\n🎨 **Frontend Development:** HTML, CSS, JavaScript, React, Vue.js\n⚙️ **Backend Development:** C, Java, Python, MongoDB\n🛠️ **Tools & Platforms:** Git, Docker, VS Code, Webpack\n🎯 **Design & UX:** UI/UX Design, Figma, Responsive Design\n🤖 **AI/ML Focus:** Machine Learning, Data Science, AI Solutions\n\nHe's always eager to learn new technologies and tackle challenging problems!",
       priority: 9
     },
-
-    // Education
     {
-      keywords: ['education', 'degree', 'university', 'college', 'study', 'mca', 'bca', 'academic', 'qualification'],
+      keywords: ['education', 'degree', 'mca', 'bca'],
       response: "📚 **Education Background:**\n\n🎓 **Master of Computer Applications (MCA)**\n• Gandhi Institute For Technology, Bhubaneswar\n• Affiliated with Biju Patnaik University of Technology, Odisha\n• Currently pursuing (1st Semester SGPA: 8.28)\n\n🎓 **Bachelor of Computer Applications (BCA)**\n• Utkal University, Bhubaneswar\n• Completed in 2025 with CGPA: 8.26\n\nMilan is committed to continuous learning and staying updated with the latest technologies.",
       priority: 8
     },
-
-    // Projects
     {
-      keywords: ['project', 'projects', 'built', 'work', 'portfolio', 'development', 'created'],
+      keywords: ['projects', 'portfolio', 'built'],
       response: "🚀 **Notable Projects:**\n\n💝 **Valentine's Day Interactive Web**\n• Responsive web application with beautiful animations\n• Interactive elements and music integration\n• Built with HTML, CSS, and JavaScript\n\n🔥 **Vue.js & Firebase Application**\n• Modern web app using Vue.js framework\n• Firebase backend integration\n• Real-time data synchronization\n\n🐍 **Python & PostgreSQL Project**\n• Backend application with Python\n• PostgreSQL database integration\n• RESTful API development\n\nCheck out the Projects section for live demos and more details!",
       priority: 8
     },
-
-    // Contact Information
     {
-      keywords: ['contact', 'email', 'reach', 'connect', 'linkedin', 'github', 'twitter', 'social', 'communication'],
+      keywords: ['contact', 'email', 'linkedin', 'github'],
       response: "📬 **Get in Touch:**\n\n📧 **Email:** milanpriyadarshi447@gmail.com\n💼 **LinkedIn:** linkedin.com/in/milan-priyadarshi2004\n💻 **GitHub:** github.com/milan-priyadarshi\n🐦 **Twitter:** x.com/reyansh_milan\n\nFeel free to reach out for collaborations, opportunities, or just to say hello! Milan is always open to interesting projects and discussions.",
       priority: 9
     },
-
-    // Experience and Background
     {
-      keywords: ['experience', 'background', 'work experience', 'professional', 'career'],
+      keywords: ['experience', 'background', 'professional'],
       response: "💼 **Professional Journey:**\n\nMilan is building his experience through:\n• Academic projects and research\n• Personal development projects\n• Continuous learning in AI/ML technologies\n• Open source contributions\n• Problem-solving and creative thinking\n\nHe's enthusiastic about applying his skills to real-world challenges and contributing to innovative solutions.",
       priority: 7
     },
-
-    // Resume/CV
     {
-      keywords: ['resume', 'cv', 'download', 'pdf', 'document'],
+      keywords: ['resume', 'cv', 'download', 'pdf'],
       response: "📄 **Resume Download:**\n\nYou can download Milan's resume by clicking the **\"Download Resume\"** button in the hero section of this page. The PDF will start downloading automatically.\n\nHis resume includes detailed information about his skills, projects, education, and experience.",
       priority: 8
     },
-
-    // Interests and Hobbies
     {
-      keywords: ['interest', 'hobby', 'hobbies', 'outside', 'free time', 'personal'],
+      keywords: ['hobby', 'hobbies', 'outside', 'personal'],
       response: "🌟 **Beyond Coding:**\n\nWhen not coding, Milan enjoys:\n• Exploring new technologies and trends\n• Contributing to open source projects\n• Learning about AI and machine learning\n• Problem-solving and creative challenges\n• Outdoor activities and nature\n\nHe's passionate about technology but also values work-life balance and continuous personal growth.",
       priority: 6
     },
-
-    // AI/ML Specific
     {
-      keywords: ['ai', 'ml', 'machine learning', 'artificial intelligence', 'data science'],
+      keywords: ['ai', 'ml', 'machine learning', 'artificial intelligence'],
       response: "🤖 **AI/ML Expertise:**\n\nMilan is particularly passionate about:\n• Machine Learning algorithms and applications\n• Data analysis and visualization\n• AI-driven solutions\n• Python for data science\n• Implementing ML models in real projects\n\nHe's continuously expanding his knowledge in this exciting field and loves applying AI to solve practical problems.",
       priority: 7
     },
-
-    // Frontend Specific
     {
-      keywords: ['frontend', 'web development', 'ui', 'ux', 'design', 'interface'],
+      keywords: ['frontend', 'web development', 'ui', 'ux', 'design'],
       response: "🎨 **Frontend Development:**\n\nMilan creates beautiful and functional user interfaces using:\n• Modern HTML5 and CSS3\n• JavaScript (ES6+)\n• React.js for dynamic applications\n• Vue.js for elegant solutions\n• Responsive design principles\n• UI/UX best practices with Figma\n\nHe believes great design and functionality go hand in hand!",
       priority: 7
     },
-
-    // Backend Specific
     {
-      keywords: ['backend', 'server', 'database', 'api', 'java', 'python backend'],
+      keywords: ['backend', 'server', 'database', 'api', 'java', 'python'],
       response: "⚙️ **Backend Development:**\n\nMilan works with robust backend technologies:\n• Java for enterprise applications\n• Python for versatile solutions\n• C for system-level programming\n• MongoDB for NoSQL databases\n• RESTful API design\n• Docker for containerization\n\nHe enjoys building scalable and efficient server-side solutions.",
       priority: 7
     },
-
-    // Greeting responses
     {
-      keywords: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'],
+      keywords: ['hello', 'hi', 'hey', 'greetings'],
       response: "Hello! 👋 I'm Milan's AI assistant. I'm here to help you learn more about his skills, projects, education, and how to get in touch. What would you like to know?",
       priority: 10
     },
-
-    // Farewell responses
     {
-      keywords: ['bye', 'goodbye', 'see you', 'thanks', 'thank you', 'appreciate'],
+      keywords: ['bye', 'thanks', 'thank you'],
       response: "You're welcome! 😊 It was great chatting with you. Feel free to come back anytime if you have more questions about Milan. Have a wonderful day!",
       priority: 9
     },
-
-    // Help responses
     {
-      keywords: ['help', 'what can you do', 'how to use', 'commands', 'options'],
+      keywords: ['help', 'what can you do', 'commands'],
       response: "🤝 **How I Can Help:**\n\nI can tell you about:\n• Milan's background and introduction\n• His technical skills and expertise\n• Education and qualifications\n• Projects and portfolio work\n• Contact information and social links\n• Resume and professional documents\n• Interests and hobbies\n\nJust ask me anything! For example:\n• \"Tell me about Milan's skills\"\n• \"What projects has he built?\"\n• \"How can I contact Milan?\"",
       priority: 8
     },
-
-    // Default fallback
     {
       keywords: ['default'],
       response: "I'd be happy to help you learn more about Milan! I can tell you about his skills, projects, education, or how to contact him. What specific information are you looking for?",
@@ -153,6 +123,7 @@
 
   function addMessage(text, sender) {
     if (!elements.messages) return;
+
     const msg = document.createElement('div');
     msg.classList.add('message', sender);
     msg.innerHTML = formatMessageText(text);
@@ -162,57 +133,43 @@
 
   function showTypingIndicator() {
     if (isTyping || !elements.messages) return null;
-    isTyping = true;
+
     const typing = document.createElement('div');
     typing.className = 'typing-indicator';
     typing.innerHTML = '<span></span><span></span><span></span>';
     elements.messages.appendChild(typing);
     elements.messages.scrollTop = elements.messages.scrollHeight;
+    isTyping = true;
+
     return typing;
   }
 
   function removeTypingIndicator(el) {
-    if (el && el.parentNode) {
-      el.remove();
-    }
+    if (el) el.remove();
     isTyping = false;
   }
 
   function getBotResponse(userText) {
     const lowerText = userText.toLowerCase().trim();
 
-    // Find the best matching response based on keyword matches and priority
-    let bestMatch = null;
+    let bestMatch = knowledgeBase[knowledgeBase.length - 1];
     let bestScore = 0;
-    let bestPriority = 0;
 
-    for (const item of knowledgeBase) {
-      if (item.keywords[0] === 'default') continue;
+    knowledgeBase.forEach((item) => {
+      if (item.keywords[0] === 'default') return;
 
       let score = 0;
-      const matchedKeywords = [];
+      item.keywords.forEach((k) => {
+        if (lowerText.includes(k)) score += k.length;
+      });
 
-      for (const keyword of item.keywords) {
-        if (lowerText.includes(keyword.toLowerCase())) {
-          score += keyword.length; // Longer keywords get higher weight
-          matchedKeywords.push(keyword);
-        }
-      }
-
-      // Boost score for multiple keyword matches
-      if (matchedKeywords.length > 1) {
-        score *= 1.5;
-      }
-
-      // Consider priority as tiebreaker
-      if (score > bestScore || (score === bestScore && item.priority > bestPriority)) {
+      if (score > bestScore) {
         bestScore = score;
         bestMatch = item;
-        bestPriority = item.priority;
       }
-    }
+    });
 
-    return bestMatch ? bestMatch.response : knowledgeBase[knowledgeBase.length - 1].response;
+    return bestMatch.response;
   }
 
   function addWelcomeMessages() {
@@ -230,17 +187,20 @@ What would you like to know?`;
 
   function openChat() {
     if (elements.chat) elements.chat.classList.add('active');
-    if (elements.assistant) elements.assistant.classList.add('chat-open');
 
     if (elements.messages && elements.messages.children.length === 0) {
       addWelcomeMessages();
-      setTimeout(() => playVoiceGreeting(), 1000);
+
+      // Play voice greeting only once when assistant opens for the first time
+      if (!hasPlayedGreeting) {
+        setTimeout(() => playVoiceGreeting(), 1000);
+        hasPlayedGreeting = true;
+      }
     }
   }
 
   function closeChat() {
     if (elements.chat) elements.chat.classList.remove('active');
-    if (elements.assistant) elements.assistant.classList.remove('chat-open');
 
     // Stop any active speech when closing
     stopSpeech();
@@ -269,23 +229,17 @@ What would you like to know?`;
     elements.send.disabled = !text || isTyping;
   }
 
-  async function botReply(userText) {
+  function botReply(userText) {
     const typingEl = showTypingIndicator();
 
-    try {
-      const response = getBotResponse(userText);
-      const delay = Math.min(800 + Math.random() * 600, 1500);
-
-      setTimeout(() => {
-        removeTypingIndicator(typingEl);
-        addMessage(response, 'bot');
-        speakText(response);
-      }, delay);
-    } catch (error) {
-      console.error('Bot reply error:', error);
+    setTimeout(() => {
       removeTypingIndicator(typingEl);
-      addMessage("Sorry, I'm having trouble responding right now. Please try again!", 'bot');
-    }
+
+      const response = getBotResponse(userText);
+      addMessage(response, 'bot');
+
+      // No voice for normal replies - only for initial greeting
+    }, 900);
   }
 
   // ==========================================
@@ -296,30 +250,17 @@ What would you like to know?`;
     if (typeof speechSynthesis === 'undefined') return null;
 
     const voices = speechSynthesis.getVoices();
+    if (voices.length === 0) return null;
 
-    // Priority order for male voices
-    const maleVoicePatterns = [
-      /male/i,
-      /david/i,
-      /alex/i,
-      /james/i,
-      /michael/i,
-      /john/i,
-      /robert/i,
-      /william/i,
-      /christopher/i,
-      /daniel/i
-    ];
+    const malePatterns = [/male/i, /david/i, /alex/i, /james/i, /michael/i, /john/i, /robert/i];
 
     // First try to find voices matching male patterns
-    for (const pattern of maleVoicePatterns) {
-      const maleVoice = voices.find(voice =>
-        voice.lang.startsWith('en') && pattern.test(voice.name)
-      );
-      if (maleVoice) return maleVoice;
+    for (const pattern of malePatterns) {
+      const voice = voices.find(v => v.lang.startsWith('en') && pattern.test(v.name));
+      if (voice) return voice;
     }
 
-    // Fallback: any English male-sounding voice
+    // Fallback: any English voice that doesn't sound female
     const englishMaleVoice = voices.find(voice =>
       voice.lang.startsWith('en') &&
       !/female|girl|woman|karen|zira|susan|hazel/i.test(voice.name)
@@ -334,15 +275,14 @@ What would you like to know?`;
   function speakText(text) {
     if (typeof speechSynthesis === 'undefined' || !text) return;
 
-    // Stop any current speech
     stopSpeech();
 
-    const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, '')); // Remove HTML tags
+    const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
     utterance.rate = 0.9;
     utterance.pitch = 1.0;
     utterance.volume = 0.8;
 
-    // Use selected male voice
+    // Ensure we have a selected voice
     if (!selectedVoice) {
       selectedVoice = selectMaleVoice();
     }
@@ -372,11 +312,14 @@ What would you like to know?`;
 
   function playVoiceGreeting() {
     if (typeof speechSynthesis === 'undefined') return;
-    if (sessionStorage.getItem(VOICE_GREETING_KEY)) return;
+
+    // Ensure we have a voice selected before speaking
+    if (!selectedVoice) {
+      selectedVoice = selectMaleVoice();
+    }
 
     const greeting = "Hello! I'm Milan's AI assistant. Feel free to ask me anything about his work, skills, or projects.";
     speakText(greeting);
-    sessionStorage.setItem(VOICE_GREETING_KEY, 'true');
   }
 
   // ==========================================
@@ -384,12 +327,10 @@ What would you like to know?`;
   // ==========================================
 
   function initializeEventListeners() {
-    // Chat controls
     if (elements.toggle) elements.toggle.addEventListener('click', openChat);
     if (elements.close) elements.close.addEventListener('click', closeChat);
     if (elements.send) elements.send.addEventListener('click', handleSend);
 
-    // Input handling
     if (elements.input) {
       elements.input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -401,12 +342,11 @@ What would you like to know?`;
       elements.input.addEventListener('input', updateSendButtonState);
     }
 
-    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeChat();
     });
 
-    // Suggestion buttons
+    // Suggestion buttons - no voice for these
     document.querySelectorAll('.ai-suggest-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const msg = btn.getAttribute('data-msg');
@@ -417,7 +357,6 @@ What would you like to know?`;
       });
     });
 
-    // Prevent form submission
     const form = elements.input?.closest('form');
     if (form) {
       form.addEventListener('submit', (e) => e.preventDefault());
@@ -431,29 +370,28 @@ What would you like to know?`;
   function initializeVoiceSynthesis() {
     if (typeof speechSynthesis === 'undefined') return;
 
-    // Initialize voice selection when voices are loaded
+    // Try to get voices immediately
+    selectedVoice = selectMaleVoice();
+
+    // Set up the event listener for when voices change (async loading)
     speechSynthesis.onvoiceschanged = () => {
       selectedVoice = selectMaleVoice();
     };
 
-    // If voices are already loaded, select immediately
-    if (speechSynthesis.getVoices().length > 0) {
-      selectedVoice = selectMaleVoice();
-    }
+    // Fallback: try again after a short delay in case voices load asynchronously
+    setTimeout(() => {
+      if (!selectedVoice) {
+        selectedVoice = selectMaleVoice();
+      }
+    }, 100);
   }
 
   function initialize() {
-    // Initialize voice synthesis
     initializeVoiceSynthesis();
-
-    // Initialize event listeners
     initializeEventListeners();
-
-    // Update send button state
     updateSendButtonState();
   }
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize);
   } else {
