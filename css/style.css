@@ -165,6 +165,91 @@ input, textarea { font-family: inherit; }
   50% { opacity: 0.6; }
 }
 
+/* ---------- Success Popup ---------- */
+.success-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10001;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96);
+  transition: opacity 0.28s ease, visibility 0.28s ease, transform 0.28s ease;
+}
+
+.success-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.success-popup-card {
+  width: min(100%, 420px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(8, 14, 40, 0.94);
+  border: 1px solid rgba(0, 255, 136, 0.24);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 40px rgba(0, 255, 136, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.success-popup-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #08131d;
+  background: linear-gradient(135deg, var(--green), #9cffc8);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.45);
+}
+
+.success-popup-icon i {
+  font-size: 1rem;
+}
+
+.success-popup-message {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .success-popup {
+    padding: 18px;
+  }
+
+  .success-popup-card {
+    gap: 12px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .success-popup-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .success-popup-message {
+    font-size: 0.93rem;
+  }
+}
+
 /* ---------- Back to Top ---------- */
 .back-to-top {
   position: fixed;

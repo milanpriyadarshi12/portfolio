@@ -273,7 +273,7 @@
               <span class="tag">Tailwind CSS</span>
               <span class="tag">JavaScript (ES6)</span>
             </div>
-            <a href="#" class="project-link">
+            <a href="https://github.com/milanpriyadarshi12/learnhub" class="project-link">
               View Project <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -295,15 +295,15 @@
           <form id="contactForm" class="contact-form" novalidate>
             <div class="form-group">
               <label for="contactName">Name</label>
-              <input type="text" id="contactName" placeholder="Your name" required autocomplete="name" />
+              <input type="text" id="contactName" placeholder="Your name" required autocomplete="name" name="name" />
             </div>
             <div class="form-group">
               <label for="contactEmail">Email</label>
-              <input type="email" id="contactEmail" placeholder="your@email.com" required autocomplete="email" />
+              <input type="email" id="contactEmail" placeholder="your@email.com" required autocomplete="email" name="email" />
             </div>
             <div class="form-group">
               <label for="contactMessage">Message</label>
-              <textarea id="contactMessage" placeholder="Tell me about your project or just say hello..." rows="5" required></textarea>
+              <textarea id="contactMessage" placeholder="Tell me about your project or just say hello..." rows="5" required name="message"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-full">
               <i class="fas fa-paper-plane"></i> Send Message
@@ -366,6 +366,16 @@
     </button>
   </div>
 
+  <div id="successPopup" class="success-popup" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true">
+    <div class="success-popup-card">
+      <div class="success-popup-icon" aria-hidden="true">
+        <i class="fas fa-check"></i>
+      </div>
+      <p class="success-popup-message">&#x1F680; Thanks for reaching out! I'll get back to you soon.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/assistant.js"></script>
 </body>

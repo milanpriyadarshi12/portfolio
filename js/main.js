@@ -322,16 +322,69 @@ setTimeout(type, 1600);
   drawParticles();
 })();
 
-/* ---------- Contact Form ---------- */
+/* ---------- EmailJS Contact Form ---------- */
 const contactForm = document.getElementById('contactForm');
+const successPopup = document.getElementById('successPopup');
+const emailJsServiceId = 'service_kb5moih';
+const emailJsTemplateId = 'template_o1aziol';
+const emailJsPublicKey = 'FJpKhy11-HBxXpI4c';
+let emailJsInitialized = false;
+let successPopupTimer = null;
+
+function showSuccessPopup() {
+  if (!successPopup) return;
+
+  successPopup.setAttribute('aria-hidden', 'false');
+  successPopup.classList.add('active');
+
+  if (successPopupTimer) {
+    clearTimeout(successPopupTimer);
+  }
+
+  successPopupTimer = setTimeout(() => {
+    successPopup.classList.remove('active');
+    successPopup.setAttribute('aria-hidden', 'true');
+  }, 3000);
+}
+
+function initEmailJs() {
+  if (emailJsInitialized) return true;
+  if (!window.emailjs || typeof window.emailjs.init !== 'function') return false;
+
+  try {
+    window.emailjs.init(emailJsPublicKey);
+    emailJsInitialized = true;
+    return true;
+  } catch (error) {
+    console.warn('EmailJS initialization failed:', error);
+    return false;
+  }
+}
+
 if (contactForm) {
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
+
     const name = document.getElementById('contactName').value.trim();
     const email = document.getElementById('contactEmail').value.trim();
     const message = document.getElementById('contactMessage').value.trim();
 
     if (!name || !email || !message) return;
+
+    if (initEmailJs() && typeof window.emailjs.sendForm === 'function') {
+      window.emailjs.sendForm(emailJsServiceId, emailJsTemplateId, this)
+        .then(() => {
+          this.reset();
+          showSuccessPopup();
+        })
+        .catch((error) => {
+          console.error('EmailJS send failed:', error);
+          const subject = encodeURIComponent(`Contact from ${name} via Portfolio`);
+          const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+          window.location.href = `mailto:milanpriyadarshi447@gmail.com?subject=${subject}&body=${body}`;
+        });
+      return;
+    }
 
     const subject = encodeURIComponent(`Contact from ${name} via Portfolio`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
