@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Milan Priyadarshi - AI & ML Engineer Portfolio. Projects, skills, and contact information." />
+  <meta name="keywords" content="Milan Priyadarshi, AI Engineer, ML Engineer, Web Developer, Portfolio" />
+  <meta name="author" content="Milan Priyadarshi" />
+  <meta name="theme-color" content="#0a0e27" />
+  <title>Portfolio - Milan Priyadarshi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/assistant.css" />
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <div class="loader-logo">MP</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div id="scrollProgress" class="scroll-progress"></div>
+
+  <!-- Back to Top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Nav Overlay (backdrop for mobile menu) -->
+  <div id="navOverlay" class="nav-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#home" class="nav-brand">Milan Priyadarshi<span class="brand-dot">.</span></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <canvas id="particlesCanvas" class="particles-canvas"></canvas>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="profile-photo">
+          <img src="public/milan.jpeg" alt="Milan Priyadarshi" loading="eager" />
+          <div class="profile-ring"></div>
+        </div>
+        <div class="hero-badge">
+          <span class="badge-dot"></span> Available for opportunities
+        </div>
+        <h1>Hi, I'm <span class="gradient-text">Milan</span></h1>
+        <p class="subtitle">
+          <span id="typingText" class="typing-text"></span><span class="typing-cursor">|</span>
+        </p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> View My Work
+          </a>
+          <a href="public/milan-priyadarshi-resume.pdf" class="btn btn-outline" download>
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">8.28</span>
+            <span class="stat-label">MCA SGPA</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">8.26</span>
+            <span class="stat-label">BCA CGPA</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">About</span>
+        <h2>Who I Am</h2>
+      </div>
+      <div class="about-content">
+        <div class="about-intro reveal">
+          <p>
+            I am a motivated learner with a growing interest in Artificial Intelligence and Machine Learning.
+            I enjoy understanding how machines learn from data and applying concepts through practical projects.
+            I am eager to expand my knowledge and contribute to innovative AI-driven solutions.
+          </p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-card reveal">
+            <div class="highlight-icon"><i class="fas fa-lightbulb"></i></div>
+            <h3>Passionate Learner</h3>
+            <p>Always exploring new technologies and methodologies in AI/ML</p>
+          </div>
+          <div class="highlight-card reveal">
+            <div class="highlight-icon"><i class="fas fa-code"></i></div>
+            <h3>Problem Solver</h3>
+            <p>Creative approach to tackling complex challenges</p>
+          </div>
+          <div class="highlight-card reveal">
+            <div class="highlight-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Quick Implementer</h3>
+            <p>From concept to deployment with practical projects</p>
+          </div>
+        </div>
+        <div class="about-outro reveal">
+          <p>
+            When I'm not coding, you can find me exploring new technologies, contributing to open source,
+            or enjoying the great outdoors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="education section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Education</span>
+        <h2>Academic Background</h2>
+      </div>
+      <div class="education-content">
+        <div class="education-card reveal">
+          <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="edu-body">
+            <div class="edu-title-row">
+              <h3>Master of Computer Applications (MCA)</h3>
+              <div class="edu-badges">
+                <span class="edu-badge pursuing">Pursuing</span>
+                <span class="edu-badge gpa">SGPA: 8.28</span>
+              </div>
+            </div>
+            <p class="edu-school">Gandhi Institute For Technology, Bhubaneswar</p>
+            <p class="edu-university">Affiliated to Biju Patnaik University of Technology, Odisha</p>
+          </div>
+        </div>
+        <div class="education-card reveal">
+          <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="edu-body">
+            <div class="edu-title-row">
+              <h3>Bachelor of Computer Applications (BCA)</h3>
+              <div class="edu-badges">
+                <span class="edu-badge year">2025</span>
+                <span class="edu-badge gpa">CGPA: 8.26</span>
+              </div>
+            </div>
+            <p class="edu-school">Utkal University, Bhubaneswar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Skills</span>
+        <h2>Technologies I Work With</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <h3>Frontend</h3>
+          <p>HTML, CSS, JavaScript, React, Chart.js</p>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon"><i class="fas fa-server"></i></div>
+          <h3>Backend</h3>
+          <p>Python, Django, Flask, FastAPI, Java, MySQL</p>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon"><i class="fas fa-brain"></i></div>
+          <h3>AI/ML</h3>
+          <p>Machine Learning, Numpy, Pandas, NLP, spaCy, scikit-learn</p>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon"><i class="fas fa-palette"></i></div>
+          <h3>Design</h3>
+          <p>UI/UX, Figma, Responsive Design</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Projects</span>
+        <h2>Featured Work</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-image" style="background-image: url('public/project2.png');"></div>
+          <div class="project-info">
+            <h3>AI Resume Intelligence Platform</h3>
+            <p>AI-powered web application that analyzes resumes using NLP, provides ATS scoring, matches resumes with job descriptions, and suggests improvements to increase hiring chances.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+              <span class="tag">NLP</span>
+              <span class="tag">spaCy</span>
+              <span class="tag">Chart.js</span>
+            </div>
+            <a href="https://github.com/milanpriyadarshi12/ai-resume-intelligence" class="project-link" target="_blank" rel="noopener">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-image" style="background-image: url('public/image.jpg');"></div>
+          <div class="project-info">
+            <h3>Valentine's Day Interactive Web</h3>
+            <p>A responsive, visually engaging project featuring smooth animations, background music, and interactive surprise elements to create a delightful user experience.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <a href="https://milanpriyadarshi12.github.io/valentine/" class="project-link" target="_blank" rel="noopener">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-image" style="background-image: url('public/project3.png');" project-image-gradient"></div>
+          <div class="project-info">
+            <h3>LearnHub Learning System</h3>
+            <p>LearnHub is a modern EdTech LMS offering courses, mock tests, live classes, study materials, and student/admin dashboards. Built with responsive design,authentication, subscriptions, and progress tracking.</p>
+            <div class="project-tags">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">JavaScript (ES6)</span>
+            </div>
+            <a href="#" class="project-link">
+              View Project <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Contact</span>
+        <h2>Let's Connect</h2>
+      </div>
+      <p class="contact-subtitle reveal">Feel free to reach out for collaboration or just a friendly hello</p>
+      <div class="contact-wrapper">
+        <div class="contact-form-box reveal">
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-group">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" placeholder="Your name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" placeholder="Tell me about your project or just say hello..." rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+        <div class="contact-info reveal">
+          <a href="mailto:milanpriyadarshi447@gmail.com" class="contact-email">
+            <i class="fas fa-envelope"></i>
+            <span>milanpriyadarshi447@gmail.com</span>
+          </a>
+          <div class="social-links">
+            <a href="https://github.com/milan-priyadarshi" class="social-link" title="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/milan-priyadarshi2004" class="social-link" title="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+            <a href="https://x.com/reyansh_milan" class="social-link" title="Twitter/X" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/8456822478" class="social-link" title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Milan Priyadarshi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- AI Assistant -->
+  <div class="ai-assistant" id="aiAssistant">
+    <div id="aiChat" class="ai-chat">
+      <div class="ai-header">
+        <div class="ai-header-info">
+          <div class="ai-status-dot"></div>
+          <span class="ai-title">Milan's AI Assistant</span>
+        </div>
+        <button id="aiClose" class="ai-close" aria-label="Close chat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="aiMessages" class="ai-messages"></div>
+      <div class="ai-suggestions" id="aiSuggestions">
+        <span class="ai-suggest-label">Try asking:</span>
+        <div class="ai-suggest-btns">
+          <button class="ai-suggest-btn" data-msg="Tell me about Milan's skills">Skills</button>
+          <button class="ai-suggest-btn" data-msg="What projects has he built?">Projects</button>
+          <button class="ai-suggest-btn" data-msg="How can I contact Milan?">Contact</button>
+        </div>
+      </div>
+      <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Ask about Milan..." autocomplete="off" spellcheck="false" />
+        <button id="aiSend" class="ai-send-btn" aria-label="Send" disabled>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+    <button id="aiToggle" class="ai-toggle" aria-label="Open AI Assistant" title="AI Assistant">
+      <img src="public/ai_assistant.png" alt="AI" class="ai-avatar-img" />
+    </button>
+  </div>
+
+  <script src="./js/main.js"></script>
+  <script src="./js/assistant.js"></script>
+</body>
+</html>
